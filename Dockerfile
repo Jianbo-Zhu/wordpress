@@ -1,2 +1,3 @@
-FROM openshift/php:5.6
+FROM rhscl/php-56-rhel7
+
 
