@@ -9,7 +9,7 @@ node {
 
   stage 'Canary release'
   if (!fileExists ('Dockerfile')) {
-    writeFile file: 'Dockerfile', text: 'FROM openshift/php:5.6'
+    writeFile file: 'Dockerfile', text: 'FROM rhscl/php-56-rhel7'
   }
 
   def newVersion = performCanaryRelease {}
