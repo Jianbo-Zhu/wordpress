@@ -9,14 +9,14 @@ node {
 
   stage 'Canary release'
   if (!fileExists ('Dockerfile')) {
-    writeFile file: 'Dockerfile', text: 'FROM node:5.3-onbuild'
+    writeFile file: 'Dockerfile', text: 'FROM openshift/php:5.6'
   }
 
   def newVersion = performCanaryRelease {}
 
   def rc = getKubernetesJson {
     port = 8080
-    label = 'node'
+    label = 'wordpress'
     icon = 'https://cdn.rawgit.com/fabric8io/fabric8/dc05040/website/src/images/logos/nodejs.svg'
     version = newVersion
     imageName = clusterImageName
