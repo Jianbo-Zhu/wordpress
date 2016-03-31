@@ -1,13 +1,12 @@
 ---
-pipeline: "workflows/node/CanaryReleaseStageAndApprovePromote/Jenkinsfile"
 issueProjectName: "shiftworkweb"
-buildName: "shiftworkweb"
+buildName: "shiftwork-web"
 codeReview: true
 links:
-  Git: "https://github.com/Jianbo-Zhu/wordpress.git"
-  Job: "http://172.30.89.93:80/job/shiftworkweb"
-  Production: "http://172.30.51.50:80/kubernetes/pods?namespace=shiftworkweb-production"
-  Staging: "http://172.30.51.50:80/kubernetes/pods?namespace=shiftworkweb-staging"
+  Git: "https://github.com/Jianbo-Zhu/wordpress"
+  Job: "http://172.30.120.9:80/job/shiftwork-web"
+  Production: "http://172.30.225.98:80/kubernetes/pods?namespace=shiftworkweb-production"
+  Staging: "http://172.30.225.98:80/kubernetes/pods?namespace=shiftworkweb-staging"
 environments:
   Staging: "shiftworkweb-staging"
   Production: "shiftworkweb-production"
