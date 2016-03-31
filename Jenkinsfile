@@ -4,6 +4,8 @@ def utils = new io.fabric8.Utils()
 node {
   def envStage = utils.environmentNamespace('staging')
   def envProd = utils.environmentNamespace('production')
+	
+  echo env
 
   checkout scm
 
