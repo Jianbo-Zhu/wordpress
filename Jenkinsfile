@@ -20,9 +20,9 @@ node {
 
   def newVersion = performCanaryRelease {}
 
-  load 'getrc.groovy'
+  def kubernetesRC = load 'getrc.groovy'
 
-  def rc = getrc {
+  def rc = kubernetesRC {
     port = 8080
     label = 'wordpress'
     icon = 'https://cdn.rawgit.com/fabric8io/fabric8/dc05040/website/src/images/logos/nodejs.svg'
