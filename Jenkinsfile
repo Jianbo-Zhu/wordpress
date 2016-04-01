@@ -5,7 +5,6 @@ node {
   def envStage = env.Staging
   def envProd = env.Production
 	
-  echo env
 
   checkout scm
 
