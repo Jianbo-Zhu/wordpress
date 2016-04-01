@@ -20,7 +20,7 @@ node {
 
   def newVersion = performCanaryRelease {}
 
-  load('getrc.groovy')
+  load 'getrc.groovy'
 
   def rc = getrc {
     port = 8080
