@@ -2,9 +2,12 @@
 def utils = new io.fabric8.Utils()
 
 node {
-  def envStage = env.Staging
-  def envProd = env.Production
+  def envStage = utils.environmentNamespace('staging')
+  def envProd = utils.environmentNamespace('production')
 	
+  env.each{
+        println it
+  }
 
   checkout scm
 
