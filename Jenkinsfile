@@ -4,12 +4,6 @@ def utils = new io.fabric8.Utils()
 node {
   def envStage = utils.environmentNamespace('staging')
   def envProd = utils.environmentNamespace('production')
-  echo 'print envs'
-  env.each{
-        println it
-  }
-  echo env['Staging']
-  echo env['Production']
 
   checkout scm
 
@@ -19,12 +13,8 @@ node {
   }
 
   def newVersion = performCanaryRelease {}
-  
-  GroovyShell shell = new GroovyShell()
-  def script = shell.parse(new File('getrc.groovy'))
-  
 
-  def rc = script {
+  def rc = getrc {
     port = 8080
     label = 'wordpress'
     icon = 'https://cdn.rawgit.com/fabric8io/fabric8/dc05040/website/src/images/logos/nodejs.svg'
