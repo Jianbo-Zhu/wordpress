@@ -6,18 +6,18 @@ node {
   def envStage = utils.environmentNamespace('staging')
   def envProd = utils.environmentNamespace('production')
 
-  checkout scm
+  git clone https://github.com/Jianbo-Zhu/wordpress.git
 
   stage 'Canary release'
-  if (!fileExists ('Dockerfile')) {
-    writeFile file: 'Dockerfile', text: 'FROM rhscl/php-56-rhel7'
+  if (!fileExists ('wordpress/Dockerfile')) {
+    writeFile file: 'wordpress/Dockerfile', text: 'FROM rhscl/php-56-rhel7'
   }
 
   def newVersion = getNewVersion{}
 
   env.setProperty('VERSION',newVersion)
 
-  kubernetes.image().withName("${env.JOB_NAME}").build().fromPath(".")
+  kubernetes.image().withName("${env.JOB_NAME}").build().fromPath("wordpress")
   kubernetes.image().withName("${env.JOB_NAME}").tag().inRepository("${env.FABRIC8_DOCKER_REGISTRY_SERVICE_HOST}:${env.FABRIC8_DOCKER_REGISTRY_SERVICE_PORT}/${env.KUBERNETES_NAMESPACE}/${env.JOB_NAME}").withTag(newVersion)
   kubernetes.image().withName("${env.FABRIC8_DOCKER_REGISTRY_SERVICE_HOST}:${env.FABRIC8_DOCKER_REGISTRY_SERVICE_PORT}/${env.KUBERNETES_NAMESPACE}/${env.JOB_NAME}").push().withTag(newVersion).toRegistry()
 
