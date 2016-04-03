@@ -2,6 +2,7 @@
 def utils = new io.fabric8.Utils()
 
 node {
+  def envQA = utils.environmentNamespace('QA')
   def envStage = utils.environmentNamespace('staging')
   def envProd = utils.environmentNamespace('production')
 
