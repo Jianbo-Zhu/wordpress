@@ -6,7 +6,7 @@ node {
   def envStage = utils.environmentNamespace('staging')
   def envProd = utils.environmentNamespace('production')
 
-  git clone https://github.com/Jianbo-Zhu/wordpress.git
+  git 'https://github.com/Jianbo-Zhu/wordpress.git'
 
   stage 'Canary release'
   if (!fileExists ('wordpress/Dockerfile')) {
