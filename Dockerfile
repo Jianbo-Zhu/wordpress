@@ -1,5 +1,2 @@
-FROM php:5.6-apache
-COPY html/ /var/www/html/
-
-
-RUN apt-get update && apt-get install -y php5-mysql
+FROM million12/nginx-php:php56
+COPY html/ /data/www/default/
