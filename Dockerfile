@@ -1,10 +1,3 @@
-FROM php:5.6-apache
+FROM 172.30.71.9:5000/shiftwork/wordpress
 
-# install the PHP extensions we need
-RUN docker-php-ext-install mysqli \
-	&& apt-get clean
-
-# the app code goes here
 COPY html/ /var/www/html/
-
-CMD ["apache2-foreground"]
