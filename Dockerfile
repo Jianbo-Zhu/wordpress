@@ -1,2 +1,2 @@
-FROM million12/nginx-php:php56
-COPY html/ /data/www/default/
+FROM php:5.6-apache
+COPY html/ /var/www/html/
