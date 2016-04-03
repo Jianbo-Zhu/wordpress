@@ -19,6 +19,7 @@ RUN { \
 		echo 'opcache.enable_cli=1'; \
 	} > /usr/local/etc/php/conf.d/opcache-recommended.ini
 
+# the app code goes here
 COPY html/ /var/www/html/
 
 CMD ["apache2-foreground"]
