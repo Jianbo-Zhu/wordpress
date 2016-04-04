@@ -35,6 +35,8 @@ node {
   stage 'Approve'
 
   def version = "${env.VERSION_PREFIX}.${env.BUILD_NUMBER}"
+
+  echo version
   /*
   approve{
     room = null
@@ -44,13 +46,12 @@ node {
   }
   */
 
-  def proceedMessage = """Version ${version} has now been deployed to the ${envStage} environment at:
-${fabric8Console}/kubernetes/pods?environment=${envStage}
+  def proceedMessage = """Version ${version} has now been deployed to the ${envStage} environment
 
-Would you like to promote version ${version} to the Production namespace?
+Would you like to promote it to the Production namespace?
 """
 
-    input id: 'Proceed', message: "\n${proceedMessage}"
+    input id: 'Proceed', message: proceedMessage
 
   stage 'Rolling upgrade Production'
   kubernetesApply(file: rc, environment: envProd)
