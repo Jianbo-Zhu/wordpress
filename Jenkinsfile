@@ -17,8 +17,9 @@ node {
 
   env.setProperty('VERSION',newVersion)
 
-  kubernetes.image().withName("${env.FABRIC8_DOCKER_REGISTRY_SERVICE_HOST}:${env.FABRIC8_DOCKER_REGISTRY_SERVICE_PORT}/${env.KUBERNETES_NAMESPACE}/${env.JOB_NAME}").build().fromPath(".")
-  kubernetes.image().withName("${env.FABRIC8_DOCKER_REGISTRY_SERVICE_HOST}:${env.FABRIC8_DOCKER_REGISTRY_SERVICE_PORT}/${env.KUBERNETES_NAMESPACE}/${env.JOB_NAME}").push().toRegistry()
+    kubernetes.image().withName("${env.JOB_NAME}").build().fromPath(".")
+    kubernetes.image().withName("${env.JOB_NAME}").tag().inRepository("${env.FABRIC8_DOCKER_REGISTRY_SERVICE_HOST}:${env.FABRIC8_DOCKER_REGISTRY_SERVICE_PORT}/${env.KUBERNETES_NAMESPACE}/${env.JOB_NAME}").withTag(newVersion)
+    kubernetes.image().withName("${env.FABRIC8_DOCKER_REGISTRY_SERVICE_HOST}:${env.FABRIC8_DOCKER_REGISTRY_SERVICE_PORT}/${env.KUBERNETES_NAMESPACE}/${env.JOB_NAME}").push().withTag(newVersion).toRegistry()
 
   def rc = getrc {
     port = 80
@@ -32,12 +33,24 @@ node {
   kubernetesApply(file: rc, environment: envStage)
 
   stage 'Approve'
+
+  def version = "${env.VERSION_PREFIX}.${env.BUILD_NUMBER}"
+  /*
   approve{
     room = null
     version = canaryVersion
     console = fabric8Console
     environment = envStage
   }
+  */
+
+  def proceedMessage = """Version ${version} has now been deployed to the ${envStage} environment at:
+${fabric8Console}/kubernetes/pods?environment=${envStage}
+
+Would you like to promote version ${version} to the Production namespace?
+"""
+
+    input id: 'Proceed', message: "\n${proceedMessage}"
 
   stage 'Rolling upgrade Production'
   kubernetesApply(file: rc, environment: envProd)
