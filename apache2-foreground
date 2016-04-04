@@ -3,8 +3,8 @@ set -e
 
 export DB_HOST=mysql
 export DB_NAME=shiftworkweb
-export DB_USER=`cat /etc/mysecret/username`
-export DB_PASSWORD=`cat /etc/mysecret/password`
+export DB_USER=`cat /etc/secret/username`
+export DB_PASSWORD=`cat /etc/secret/password`
 
 
 # Apache gets grumpy about PID files pre-existing
