@@ -1,4 +1,5 @@
 ---
+chatRoom: "fabric8_default"
 issueProjectName: "shiftworkweb"
 buildName: "shiftworkweb"
 codeReview: true
@@ -7,6 +8,7 @@ links:
   Job: "http://172.30.98.146:80/job/shiftworkweb"
   Production: "http://172.30.152.37:80/kubernetes/pods?namespace=shiftworkweb-production"
   Staging: "http://172.30.152.37:80/kubernetes/pods?namespace=shiftworkweb-staging"
+  Room: "http://letschat.shiftwork.openshift.hughestech.space/#!/room/5706ff74aa8a9b150074d122"
 environments:
   Staging: "shiftworkweb-staging"
   Production: "shiftworkweb-production"
